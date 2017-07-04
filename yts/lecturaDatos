@@ -10,9 +10,23 @@ var _get = function(url){
     xhr.open('GET', url);
     xhr.send();
   };
-_get("http://127.0.0.1:8080/moviesYTS.json");
+_get("http://127.0.0.1:8080/json/moviesYTS.json");
 pelis //Object {peliculas=[6499]}
 pelis.peliculas.length //6499
 pelis.peliculas[0].data.movie.title //bikini model academy
 pelis.peliculas[100].data.movie.title //a man apart
 pelis.peliculas[6498].data.movie.title //ms dhoni
+
+
+var grancsv = '\"id\", \"title\", \"year\", \"downloadsCount\" \n';
+for(var i = 0; i < pelis.peliculas.length; i++){
+  grancsv += "\"" + pelis.peliculas[i].data.movie.id + "\","
+  grancsv += "\"" + pelis.peliculas[i].data.movie.title + "\","
+  grancsv += "\"" + pelis.peliculas[i].data.movie.year + "\","
+  grancsv += "\"" + pelis.peliculas[i].data.movie.download_count + "\"\n"
+}
+
+var cabecera = new Blob(
+  [grancsv], {type: "text/plain; charset=utf-8"}
+);
+saveAs(cabecera, "peliculas.csv");
