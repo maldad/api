@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "{ \"peliculas\" : [" >> moviesYTS.json
+
+for i in {1..6500}
+do
+  curl https://yts.ag/api/v2/movie_details.json?movie_id=$i >> moviesYTS.json
+  echo "," >> moviesYTS.json
+  #eliminar la ultima separadora del arreglo de peliculas manualmente por favor
+done
+
+echo "]}" >> moviesYTS.json
