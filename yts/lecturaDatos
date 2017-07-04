@@ -1,0 +1,18 @@
+//en una consola JavaScript...
+var pelis;  
+var _get = function(url){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState === 4 && xhr.status === 200){
+        pelis = JSON.parse(xhr.responseText);
+      }
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  };
+_get("http://127.0.0.1:8080/moviesYTS.json");
+pelis //Object {peliculas=[6499]}
+pelis.peliculas.length //6499
+pelis.peliculas[0].data.movie.title //bikini model academy
+pelis.peliculas[100].data.movie.title //a man apart
+pelis.peliculas[6498].data.movie.title //ms dhoni
